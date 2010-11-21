@@ -8,8 +8,10 @@ function fileutils#GetDirContents(directory)
     if type(a:directory)!=type("")
         return -1
     endif
+    " fnamemodify("", ":p") already gives the name of the current directory, but 
+    " I am not sure whether I can rely on it
     " fnamemodify will expand ~ which isdirectory does not accept
-    let fullpath=fnamemodify(a:directory, ':p')
+    let fullpath=fnamemodify((empty(a:directory)?('.'):(a:directory)), ':p')
     if !isdirectory(fullpath)
         return -1
     endif
