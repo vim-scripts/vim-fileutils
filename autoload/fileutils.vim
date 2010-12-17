@@ -56,8 +56,20 @@ if !exists('*s:GetDirContents')
         function s:GetDirContents(directory)
             let dirlist = split(glob(a:directory.'/*'),  "\n", 1)+
                         \ split(glob(a:directory.'/.*'), "\n", 1)
+            let nlnum=len(split(a:directory, "\n", 1))-1
             let r=[]
+            let i=0
+            let addfragment=""
             for directory in dirlist
+                if i<nlnum
+                    let i+=1
+                    let addfragment=directory."\n"
+                    continue
+                else
+                    let directory=addfragment.directory
+                    let i=0
+                    let addfragment=""
+                endif
                 let tail=fnamemodify(directory, ':t')
                 if tail==#'.' || tail==#'..'
                     continue
