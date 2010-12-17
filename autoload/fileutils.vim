@@ -22,7 +22,7 @@ function fileutils#GetDirContents(directory)
     let fullpath=fullpath[:-2]
     return s:GetDirContents(fullpath)
 endfunction
-if 0 && has('python')
+if has('python')
     try
         python import vim
         python import os
